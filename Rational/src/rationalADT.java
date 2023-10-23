@@ -1,7 +1,9 @@
+import java.math.BigInteger;
+
 public interface rationalADT{
   
-  int num();
-  int den();
+  BigInteger num();
+  BigInteger den();
 
   public Rational add(Rational r);
 

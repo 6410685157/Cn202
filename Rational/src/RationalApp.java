@@ -1,8 +1,13 @@
+import java.math.BigInteger;
 public class RationalApp{
-  public static void main(String[] args) {
-    Rational sum = new Rational(0, 1);
+  public static void main(String[] args, BigInteger A, BigInteger B, BigInteger x0, BigInteger x1) {
+    A  = BigInteger.valueOf(0);
+    B  = BigInteger.valueOf(1); 
+    Rational sum = new Rational(A, B);
         for (int i = 1; i <= 99; i++) {
-            Rational x = new Rational(i, i + 1);
+            x0 = BigInteger.valueOf(i);
+            x1 = BigInteger.valueOf(i + 1);
+            Rational x = new Rational(x0, x1);
             sum = sum.add(x);
             sum.reduce();
             String result = sum.toString();
