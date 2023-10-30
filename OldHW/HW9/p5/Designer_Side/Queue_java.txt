@@ -1,0 +1,97 @@
+public class Queue implements QueueADT
+{
+  // The physical model contains two linked queues, one for priority 0 and the other for priority 1
+ 
+  // instance variables
+  private int nItemsP0;
+  private Node frontP0;
+  private Node rearP0;
+
+  private int nItemsP1;
+  private Node frontP1;
+  private Node rearP1;
+
+  // constructor
+  public Queue()
+  { nItemsP0 = nItemsP1 = 0; frontP0 = rearP0 = frontP1 = rearP1 = null; }
+
+  // methods
+  public void insert(QueueItem newItem) throws InvalidPriorityException
+  {
+    int priorityItem = newItem.getPriority();
+    if (priorityItem == 1)
+    {
+      Node newNode = new Node(newItem, null);
+      if (nItemsP1 == 0)
+        frontP1 = newNode;
+      else
+        rearP1.setNext(newNode);
+      rearP1 = newNode;
+      nItemsP1++;
+    }
+    else if (priorityItem == 0)
+    {
+      Node newNode = new Node(newItem, null);
+      if (nItemsP0 == 0)
+        frontP0 = newNode;
+      else
+        rearP0.setNext(newNode);
+      rearP0 = newNode;
+      nItemsP0++;
+    }
+    else
+      throw new InvalidPriorityException("Priority of new item is invalid");    
+  }
+
+  public QueueItem remove() throws QueueEmptyException
+  {
+    if (isEmpty())
+      throw new QueueEmptyException("Queue is empty");
+    QueueItem temp;
+    if (nItemsP1 != 0)
+    {
+      // remove front item with priority 1 out of the queue
+      temp = frontP1.getItem();
+      frontP1 = frontP1.getNext();
+      if (frontP1 == null)
+        rearP1 = null;
+      nItemsP1--;
+    }
+    else
+    {
+      // remove front item with priority 0 out of the queue
+      temp = frontP0.getItem();
+      frontP0 = frontP0.getNext();
+      if (frontP0 == null)
+        rearP0 = null;
+      nItemsP0--;
+    }
+    return temp;
+  }
+
+  public int size()
+  { return nItemsP1 + nItemsP0;
+  }
+  public boolean isEmpty()
+  { return ((nItemsP1 == 0) && (nItemsP0 == 0));
+  }
+  public void printQueue()
+  {
+    // print all items with priority 1
+    System.out.println("Items with priority 1 from front to rear");
+    Node current = frontP1;
+    while (current != null)
+    {
+      System.out.println(current.getItem());
+      current = current.getNext();
+    }
+    // print all items with priority 0
+    System.out.println("Items with priority 0 from front to rear");
+    current = frontP0;
+    while (current != null)
+    {
+      System.out.println(current.getItem());
+      current = current.getNext();
+    }
+  }
+}

@@ -1,0 +1,40 @@
+public class StudentDataApp2
+{
+  public static void main(String[] args)
+  {
+    BST stdRec = new BST();
+
+    stdRec.insert(new Student("0456", "Somrak"));
+
+    stdRec.insert(new Student("0383", "Pongsak"));
+
+    stdRec.insert(new Student("0139", "Niwat"));
+
+    stdRec.insert(new Student("0345", "Somkiat"));
+
+    stdRec.insert(new Student("0847", "Somyot"));
+
+    String searchID = "0383";
+    Student foundStudent = (Student) stdRec.find(searchID);
+    if (foundStudent != null)
+      System.out.println("Found " + foundStudent);
+    else
+      System.out.println("Can't find " + searchID);
+
+    Student minKeyStudent = (Student) stdRec.findMinKeyItem();
+    if (minKeyStudent != null)
+      System.out.println("Item with min key is " + minKeyStudent);
+    else
+      System.out.println("Tree is empty");
+
+    Student maxKeyStudent = (Student) stdRec.findMaxKeyItem();
+    if (maxKeyStudent != null)
+      System.out.println("Item with max key is " + maxKeyStudent);
+    else
+      System.out.println("Tree is empty");
+
+    System.out.println("Delete 0139");
+    stdRec.delete("0139");
+
+  }
+}

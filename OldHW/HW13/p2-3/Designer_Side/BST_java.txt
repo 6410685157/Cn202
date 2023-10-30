@@ -1,0 +1,148 @@
+public class BST implements BSTADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BST()
+  { root = null; }
+
+  // methods
+  // return true if key k is found
+  // return false if no key k is in the BST
+  public boolean find(int k)
+  { 
+    if (root == null)
+      return false;  // false is returned if the BST is empty
+
+    Node current = root;
+    while (k != current.getKey())
+    {
+      if (k < current.getKey())
+        current = current.getLeftChild();
+      else
+        // k >= key(current)
+        current = current.getRightChild();
+      if (current == null)
+        return false;  // cannot find it
+    }
+    return true; // find it
+  }
+
+  // insert a key k
+  public void insert(int k)
+  {
+    Node newNode = new Node(k, null, null, null);    
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      while (true)
+      {
+        parent = current;
+        if (k < current.getKey())
+        {
+          current = current.getLeftChild(); // go left
+          if (current == null)
+          {
+            // insert on left
+            parent.setLeftChild(newNode);
+            newNode.setParent(parent);
+            return;
+          }
+        }
+        else
+        {
+          // k >= key(current)
+          current = current.getRightChild(); // go right
+          if (current == null)
+          {
+            // insert on right
+            parent.setRightChild(newNode);       
+            newNode.setParent(parent);
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      localRoot.printNode();
+      System.out.println("depth = " + depth(localRoot));
+      System.out.println();
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      localRoot.printNode();
+      System.out.println("depth = " + depth(localRoot));
+      System.out.println();
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }
+    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      localRoot.printNode();
+      System.out.println("depth = " + depth(localRoot));
+      System.out.println();
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+  }
+
+  public Node getRoot()
+  { return root; }
+
+  private int numLeaf(Node localRoot)
+  {
+    if (localRoot == null)
+      return 0;
+    else if ((localRoot.getLeftChild() == null) && (localRoot.getRightChild() == null))
+      return 1; // found leaf
+    else
+      return (numLeaf(localRoot.getLeftChild()) + numLeaf(localRoot.getRightChild()));
+  }
+
+  public int numLeaf()
+  {
+    return (numLeaf(getRoot()));
+  }
+
+  public int depth(Node v)
+  {
+    if (v == null)
+      return -1;
+    else if (v == root)
+      return 0; // root node, depth = 0
+    else
+      return (1 + depth(v.getParent()));
+  }
+}

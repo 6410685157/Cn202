@@ -1,0 +1,27 @@
+public interface BSTADT
+{
+  // find and return the item with desired key k
+  // return null if not found
+  public TreeItem find(Object k);
+
+  // insert a tree item into the BST
+  public void insert(TreeItem i);
+
+  // return the tree item with the minimum key value
+  // return null if the tree is empty
+  public TreeItem findMinKeyItem();
+
+  // return the tree item with the maximum key value
+  // return null if the tree is empty
+  public TreeItem findMaxKeyItem();
+
+  // remove the item with the desired key
+  // return true if the deletion can be done successfully
+  // return false if the tree has no such item
+  public boolean delete(Object k);
+
+  // traverse tree in various ways
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+}

@@ -1,0 +1,12 @@
+public interface BSTADT
+{
+  public boolean find(int k);
+  public void insert(int k);
+  public boolean delete(int k);
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+  public Node getRoot();
+  public int findFloor(int x);
+  public int copyBST2Array(Node v, int[] a, int pos);
+}

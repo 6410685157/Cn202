@@ -1,0 +1,13 @@
+public interface BinaryTreeADT
+{
+  // insert an item i into the binary tree
+  public void insert(int i);
+
+  // traverse the binary tree in various ways
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+
+  // change the tree into its mirror image
+  public void mirror();
+}

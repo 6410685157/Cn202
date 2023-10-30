@@ -1,0 +1,12 @@
+public interface TreeItem
+{
+   // print information of the tree item
+   public String toString();
+
+   // return the key of the tree item
+   public Object getKey();
+
+   // compare the key of this tree item with other key
+   // return value >, ==, < 0 if the key of this tree item is >, ==, < other key
+   public int compareTo(Object otherKey);
+}

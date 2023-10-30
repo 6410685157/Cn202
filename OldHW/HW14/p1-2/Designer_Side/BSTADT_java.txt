@@ -1,0 +1,15 @@
+public interface BSTADT
+{
+  // insert a tree item into the BST
+  public void insert(int i);
+
+  // find the height of the BST
+  public int height();
+
+  // traverse tree in various ways
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+
+  public void traverseBFS();
+}

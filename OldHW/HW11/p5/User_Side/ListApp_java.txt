@@ -1,0 +1,19 @@
+public class ListApp
+{
+  public static void main(String[] args)
+  {
+    List myList = new List();
+    myList.insertAtFront(3);
+    myList.insertAtFront(5);
+    myList.insertAtFront(2);
+    myList.insertAtFront(4);
+    myList.insertAtFront(1);
+    System.out.println("Size of myList = " + myList.size());
+    myList.printList();
+
+    int sumIterative = myList.findSumItemIterative();
+    System.out.println("Sum of all items = " + sumIterative);
+    int sumRecursive = myList.findSumItemRecursive();
+    System.out.println("Sum of all items = " + sumRecursive);
+  }
+}

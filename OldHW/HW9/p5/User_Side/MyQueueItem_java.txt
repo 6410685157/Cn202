@@ -1,0 +1,14 @@
+public class MyQueueItem implements QueueItem
+{
+   private int priority;
+   private String data;
+
+   public MyQueueItem(int priorityValue, String name)
+   { priority = priorityValue; data = name; }
+
+   public String toString()
+   { return "(Priority = " + priority + ", " + data + ")"; }
+
+   public int getPriority()
+   { return priority; }
+}

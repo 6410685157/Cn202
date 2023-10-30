@@ -1,0 +1,130 @@
+public class BST implements BSTADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BST()
+  { root = null; }
+
+  // methods
+  // insert a tree item into the BST
+  public void insert(int i)
+  {
+    Node newNode = new Node(i, null, null);
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      while (true)
+      {
+        parent = current;
+        if (current.getTreeItem() > i)
+        {   // k < key(current)
+            current = current.getLeftChild(); // go left
+            if (current == null)
+            {
+              // insert on left
+              parent.setLeftChild(newNode);
+              break;
+            }
+        }
+        else
+        {
+            // k >= key(current)
+            current = current.getRightChild(); // go right
+            if (current == null)
+            {
+              // insert on right
+              parent.setRightChild(newNode);
+              break;  
+            }
+        }
+      } // while
+    } // else
+  } // method
+
+  // return the height of the localRoot
+  private int height(Node localRoot)
+  { 
+    if (localRoot == null)
+      return -1;
+    if ((localRoot.getLeftChild() == null) && (localRoot.getRightChild() == null))
+      return 0;
+    int hL = height(localRoot.getLeftChild()); // height of left subtree
+    int hR = height(localRoot.getRightChild()); // height of right subtree
+    return 1 + Math.max(hL, hR);
+  }
+  
+  // return the height of the BST
+  public int height()
+  { return height(root);  
+  }   
+
+  public void traverseBFS()
+  {
+    if (root != null)
+    {
+      Queue q = new Queue();
+      q.insert(root);
+      while (!q.isEmpty())
+      {
+        Node curr = (Node) q.remove();
+        System.out.print(curr.getTreeItem() + " ");
+        Node leftCurr = curr.getLeftChild();
+        if (leftCurr != null)
+          q.insert(leftCurr);
+        Node rightCurr = curr.getRightChild();
+        if (rightCurr != null)
+          q.insert(rightCurr);
+      }
+    }
+  }
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+     System.out.println();
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      System.out.print(localRoot.getTreeItem() + " ");
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+     System.out.println();
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+     System.out.println();
+  }
+}

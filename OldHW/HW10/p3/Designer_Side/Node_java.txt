@@ -1,0 +1,18 @@
+public class Node
+{
+  private DictionaryItem item;
+  private Node next;
+
+  // constructor
+  public Node(DictionaryItem itemValue, Node nextValue)
+  { item = itemValue; next = nextValue; }
+  // get-set methods
+  public DictionaryItem getItem()
+  { return item; }
+  public Node getNext()
+  { return next; }
+  public void setItem(DictionaryItem newItem)
+  { item = newItem; }
+  public void setNext(Node newNext)
+  { next = newNext; }
+}

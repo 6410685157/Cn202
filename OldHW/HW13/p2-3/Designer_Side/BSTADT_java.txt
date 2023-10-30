@@ -1,0 +1,11 @@
+public interface BSTADT
+{
+  public boolean find(int k);
+  public void insert(int k);
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+  public Node getRoot();
+  public int numLeaf();
+  public int depth(Node v);
+}

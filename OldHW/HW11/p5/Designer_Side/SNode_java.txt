@@ -1,0 +1,18 @@
+public class SNode
+{
+  private int item;
+  private SNode next;
+
+  // constructor
+  public SNode(int anItem, SNode aNext)
+  { item = anItem; next = aNext; }
+  // get-set methods
+  public int getItem()
+  { return item; }
+  public SNode getNext()
+  { return next; }
+  public void setItem(int newItem)
+  { item = newItem; }
+  public void setNext(SNode newNext)
+  { next = newNext; }
+}

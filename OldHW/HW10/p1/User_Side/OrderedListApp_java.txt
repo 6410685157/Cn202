@@ -1,0 +1,19 @@
+public class OrderedListApp
+{
+  public static void main(String[] args)
+  {
+    OrderedList myList = new OrderedList();
+    myList.insertAtFront(4);
+    myList.insertAtFront(4);
+    myList.insertAtFront(3);
+    myList.insertAtFront(3);
+    myList.insertAtFront(3);
+    myList.insertAtFront(2);
+    myList.insertAtFront(1);
+    myList.insertAtFront(1);
+    myList.printList();
+
+    myList.removeDuplicates();
+    myList.printList();
+  }
+}

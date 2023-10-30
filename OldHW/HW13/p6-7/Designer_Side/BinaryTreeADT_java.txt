@@ -1,0 +1,20 @@
+public interface BinaryTreeADT
+{
+  // insert an item i into a BST
+  public void insert(int i);
+
+  // insert an item i in a BFS manner
+  public void insertBFS(int i);
+
+  // traverse the binary tree in various ways
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+  public void traverseBFS();
+
+  // count the number of nodes in the binary tree
+  public int countNode();
+
+  // check whether the binary tree is a BST
+  public boolean isBST();
+}

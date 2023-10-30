@@ -1,0 +1,47 @@
+public class Node
+{
+  private int key;
+  private Node left;
+  private Node right;
+  private Node parent;
+
+  // constructor
+  public Node(int k, Node l, Node r, Node p)
+  { key = k; left = l; right = r; parent = p; }
+  // get-set methods
+  public int getKey()
+  { return key; }
+  public Node getLeftChild()
+  { return left; }
+  public Node getRightChild()
+  { return right; }
+  public Node getParent()
+  { return parent; }
+  public void setKey(int k)
+  { key = k; }
+  public void setLeftChild(Node l)
+  { left = l; }
+  public void setRightChild(Node r)
+  { right = r; }
+  public void setParent(Node p)
+  { parent = p; }
+
+  public void printNode()
+  { System.out.println("Node");
+    System.out.println("Key = " + key);
+    if (parent == null)
+      System.out.println("no parent (root node)");
+    else
+      System.out.println("Parent = " + parent.getKey());
+
+    if (left == null)
+      System.out.println("no left child");
+    else
+      System.out.println("Left = " + left.getKey());
+
+    if (right == null)
+      System.out.println("no right child");
+    else
+      System.out.println("Right = " + right.getKey());
+  }
+}

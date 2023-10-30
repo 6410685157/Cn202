@@ -1,0 +1,32 @@
+public class BSTApp
+{
+  public static void main(String[] args)
+  {
+    BST theBST = new BST();
+
+    theBST.insert(9);
+    theBST.insert(4);
+    theBST.insert(15);
+    theBST.insert(2);
+    theBST.insert(6);
+    theBST.insert(12);
+    theBST.insert(21);
+    theBST.insert(7);
+
+    // inorder traversal
+    System.out.println("Inorder: ");
+    theBST.traverseInOrder();
+
+    System.out.println("theBST.findFloor(11) = " + theBST.findFloor(11));
+    System.out.println("theBST.findFloor(21) = " + theBST.findFloor(21));
+    System.out.println("theBST.findFloor(9) = " + theBST.findFloor(9));
+    System.out.println("theBST.findFloor(1) = " + theBST.findFloor(1));
+
+    int[] a = new int[100];
+    int atPos = 0;
+    int numCopiedItems = theBST.copyBST2Array(theBST.getRoot(), a, atPos);
+    for (int i=atPos; i<atPos+numCopiedItems; i++)
+      System.out.print("a[" + i + "] = " + a[i] + " ");
+    System.out.println();
+  }
+}

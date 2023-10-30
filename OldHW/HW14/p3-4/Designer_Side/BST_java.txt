@@ -1,0 +1,269 @@
+public class BST implements BSTADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BST()
+  { root = null; }
+
+  // methods
+  // return true if key k is found
+  // return false if no key k is in the BST
+  public boolean find(int k)
+  { 
+    if (root == null)
+      return false;  // false is returned if the BST is empty
+
+    Node current = root;
+    while (k != current.getKey())
+    {
+      if (k < current.getKey())
+        current = current.getLeftChild();
+      else
+        // k >= key(current)
+        current = current.getRightChild();
+      if (current == null)
+        return false;  // cannot find it
+    }
+    return true; // find it
+  }
+
+  // insert a key k
+  public void insert(int k)
+  {
+    Node newNode = new Node(k, null, null);    
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      while (true)
+      {
+        parent = current;
+        if (k < current.getKey())
+        {
+          current = current.getLeftChild(); // go left
+          if (current == null)
+          {
+            // insert on left
+            parent.setLeftChild(newNode);
+            return;
+          }
+        }
+        else
+        {
+          // k >= key(current)
+          current = current.getRightChild(); // go right
+          if (current == null)
+          {
+            // insert on right
+            parent.setRightChild(newNode);       
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  // delete the key k and return true
+  // if no key k, return false
+  public boolean delete(int k)
+  {
+    if (root == null)
+      return false; // the BST is empty
+
+    // start from the root
+    Node current = root;
+    // parent of the current node
+    Node parent = root;
+    // indicate the node to be deleted
+    // is left or right child of its parent
+    boolean isLeftChild = true;
+
+    while (k != current.getKey())
+    {
+      parent = current;
+      if (k < current.getKey())
+      {
+         isLeftChild = true;
+         current = current.getLeftChild();
+      }
+      else
+      {
+         // k > key(current)
+         isLeftChild = false;
+         current = current.getRightChild();
+      }
+      if (current == null)
+         return false; // no item with key k in the tree
+    }
+    // found the node to be deleted
+
+    if ((current.getLeftChild() == null) && (current.getRightChild() == null))
+    {
+      // case 1: the node to be deleted is a leaf
+      if (current == root)
+        root = null;
+      else if (isLeftChild)
+        parent.setLeftChild(null);
+      else
+        parent.setRightChild(null); 
+    }
+    else if (current.getLeftChild() == null)
+    {
+      // case 2: the node to be deleted has only left child
+      if (current == root)
+        root = current.getRightChild();
+      else if (isLeftChild)
+        parent.setLeftChild(current.getRightChild());
+      else
+        parent.setRightChild(current.getRightChild());
+    }
+    else if (current.getRightChild() == null)
+    {
+      // case 2: the node to be deleted has only right child
+      if (current == root)
+        root = current.getLeftChild();
+      else if (isLeftChild)
+        parent.setLeftChild(current.getLeftChild());
+      else
+        parent.setRightChild(current.getLeftChild());
+    }
+    else
+    {
+      // case 3: the node to be deleted has two children
+
+      // get successor of the node to be deleted
+      Node successor = getSuccessor(current);
+
+      // connect parent of the node to be deleted (if any)
+      // to successor
+      if (current == root)
+        root = successor;
+      else if (isLeftChild)
+        parent.setLeftChild(successor);
+      else
+        parent.setRightChild(successor);
+
+      // connect successor to the left child of
+      // the node to be deleted
+      successor.setLeftChild(current.getLeftChild());
+
+    }
+    return true; // success
+  }
+
+  private Node getSuccessor(Node delNode)
+  {
+    Node parentSuccessor = delNode;
+    Node successor = delNode;
+
+    // start by going to the right subtree
+    Node curr = delNode.getRightChild();
+    // then keep going to the left subtree
+    while (curr != null)
+    {
+      parentSuccessor = successor;
+      successor = curr;
+      curr = curr.getLeftChild();
+    }
+    if (successor != delNode.getRightChild())
+    {
+      parentSuccessor.setLeftChild(successor.getRightChild());
+      successor.setRightChild(delNode.getRightChild());
+    }
+
+    return successor;
+  }
+
+  // return -1 if the BST is empty
+  // return  0 if all keys in the BST are less than or equal to x
+  // return the smallest key in the BST that is greater than x
+  public int findFloor(int x)
+  {
+    Node current = root;
+
+    int  best = -1;
+
+    while (current != null)
+    {
+      if (current.getKey() <= x)
+      {
+        // go to the right subtree to find the larger key
+        if (best == -1)
+          best = 0;
+        current = current.getRightChild();
+      }
+      else
+      {
+        // find the key
+        // look for the better one by going to the left subtree
+        best = current.getKey();
+        current = current.getLeftChild();
+      }
+    }
+    return best;
+  }
+
+  public int copyBST2Array(Node localRoot, int[] a, int pos)
+  {
+    if (localRoot != null)
+    {
+      int numItemsInLeftSubTree = copyBST2Array(localRoot.getLeftChild(), a, pos);
+      a[pos + numItemsInLeftSubTree] = localRoot.getKey();
+      int numItemsInRightSubTree =
+          copyBST2Array(localRoot.getRightChild(), a, pos + numItemsInLeftSubTree + 1);
+      return numItemsInLeftSubTree + numItemsInRightSubTree + 1;
+    }
+    else
+      return 0;
+  }
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      System.out.println(localRoot.getKey());
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      System.out.println(localRoot.getKey());
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }
+    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      System.out.println(localRoot.getKey());
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+  }
+
+  public Node getRoot()
+  { return root; }
+}

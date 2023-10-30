@@ -1,0 +1,52 @@
+public class OrderedList
+{
+  private SNode first;
+  private int nItems;
+
+  public OrderedList()
+  { first = null;
+    nItems = 0;
+  }
+  public int size()
+  { return nItems;
+  }
+  public void insertAtFront(int o)
+  {
+    SNode newSNode = new SNode(o, first);
+    first = newSNode;
+    nItems++;
+  }
+  public boolean isEmpty()
+  { return (nItems == 0);
+  }
+  public void printList()
+  {
+    SNode curr = first;
+    while (curr != null)
+    {
+      System.out.print(curr.getItem() + " ");
+      curr = curr.getNext();
+    }
+    System.out.println();
+  }
+  public void removeDuplicates()
+  {
+    SNode curr = first;
+    if (curr != null)
+    {
+      SNode next = curr.getNext();
+      while (next != null)
+      {
+        if (curr.getItem() == next.getItem())
+        {
+          curr.setNext(next.getNext());
+          nItems--;
+        }
+        else
+          curr = next;
+        next = curr.getNext();
+      }
+    }
+  }
+
+}

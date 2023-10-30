@@ -1,0 +1,77 @@
+public class Stack implements StackADT
+{ 	
+  // instance variables
+  private int[] itemStack;
+  private int[] maxStack;
+  private int top;
+
+  // constructors
+  public Stack(int maxSize)
+  {
+    itemStack = new int[maxSize];
+    maxStack = new int[maxSize];
+    top = -1;
+  }
+  public Stack()
+  { this(100); }
+
+  // methods
+  public int size()
+  { return top+1;  }
+
+  public boolean isEmpty()
+  { return (top == -1);  }
+
+  public int top() throws StackEmptyException
+  {
+    if (isEmpty())
+       throw new StackEmptyException("Stack is empty.");
+    return itemStack[top];
+  }
+
+  public void push(int item) throws StackFullException
+  {
+    if (top == itemStack.length-1)
+       throw new StackFullException("Stack is full.");
+    if (isEmpty())
+    {  top = top+1;
+       itemStack[top] = item;
+       maxStack[top] = item;
+    }
+    else
+    {
+       int currentMax = maxStack[top];
+       top = top+1;
+       itemStack[top] = item;
+       if (item > currentMax)
+         maxStack[top] = item;
+       else
+         maxStack[top] = currentMax;
+    }
+  }
+
+  public int pop() throws StackEmptyException
+  {
+    if (isEmpty())
+      throw new StackEmptyException("Stack is empty.");
+    return itemStack[top--];
+  }
+
+  public int max() throws StackEmptyException
+  {
+    if (isEmpty())
+      throw new StackEmptyException("Stack is empty.");
+    return maxStack[top];
+  }
+
+  public void printStack()
+  {
+    System.out.println("Items on stack");
+    for (int i=top; i>=0; i--)
+    {
+       System.out.println("item = " + itemStack[i]);
+       System.out.println("max = " + maxStack[i]);
+       System.out.println();
+    }
+  }
+}

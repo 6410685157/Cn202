@@ -1,0 +1,22 @@
+public class Node
+{
+  private int item;
+  private Node left;
+  private Node right;
+
+  public Node(int i, Node l, Node r)
+  { item = i; left = l; right = r; }
+  // get-set methods
+  public int getTreeItem()
+  { return item; }
+  public Node getLeftChild()
+  { return left; }
+  public Node getRightChild()
+  { return right; }
+  public void setTreeItem(int i)
+  { item = i; }
+  public void setLeftChild(Node l)
+  { left = l; }
+  public void setRightChild(Node r)
+  { right = r; }
+}

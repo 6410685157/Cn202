@@ -1,0 +1,23 @@
+public class BSTApp
+{
+  public static void main(String[] args)
+  {
+    BST theBST = new BST();
+    theBST.insert(9);
+    theBST.insert(4);
+    theBST.insert(15);
+    theBST.insert(2);
+    theBST.insert(6);
+    theBST.insert(7);
+    theBST.insert(12);
+    theBST.insert(21);
+
+    System.out.println("Inorder Traversal");
+    theBST.traverseInOrder();
+
+    System.out.println("Height = " + theBST.height());
+
+    System.out.println("Traversal in BSF manner");
+    theBST.traverseBFS();    
+  }
+}

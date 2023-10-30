@@ -1,0 +1,25 @@
+public class BSTApp
+{
+  public static void main(String[] args)
+  {
+    BST bst = new BST();
+    bst.insert(9);
+    bst.insert(4);
+    bst.insert(15);
+    bst.insert(2);
+    bst.insert(6);
+    bst.insert(7);
+    bst.insert(12);
+    bst.insert(21);
+    
+    System.out.println("Inorder Traversal");
+    bst.traverseInOrder();
+    System.out.println("Preorder Traversal");
+    bst.traversePreOrder();
+
+    System.out.println("15: " + bst.hasPathEqual(15));
+    System.out.println("26: " + bst.hasPathEqual(26));
+    System.out.println("36: " + bst.hasPathEqual(36));
+    System.out.println("45: " + bst.hasPathEqual(45));
+  }
+}

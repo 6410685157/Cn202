@@ -1,0 +1,270 @@
+public class BST implements BSTADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BST()
+  { root = null; }
+
+  // methods
+
+  // find and return the item with desired key k in the subtree
+  // whose root is localRoot
+  // return null if not found
+  private TreeItem find(Node localRoot, Object k)
+  {
+    if (localRoot == null)
+      return null;
+    TreeItem currentItem = localRoot.getTreeItem();
+    if (currentItem.compareTo(k) == 0)
+       return currentItem;
+    else if (currentItem.compareTo(k) > 0)
+       // k < key(currentItem)
+       return find(localRoot.getLeftChild(), k);
+    else
+       // k > key(currentItem)
+       return find(localRoot.getRightChild(), k);
+  }
+
+  public TreeItem find(Object k)
+  {
+     return find(root, k);
+  }
+
+  // insert a tree item into the BST
+  public void insert(TreeItem i)
+  {
+    Node newNode = new Node(i, null, null);
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      Object newKey = i.getKey(); // get key of the item i
+      while (true)
+      {
+        parent = current;
+        if (current.getTreeItem().compareTo(newKey) > 0)
+        {   // k < key(current)
+            current = current.getLeftChild(); // go left
+            if (current == null)
+            {
+              // insert on left
+              parent.setLeftChild(newNode);
+              break;
+            }
+        }
+        else
+        {
+            // k >= key(current)
+            current = current.getRightChild(); // go right
+            if (current == null)
+            {
+              // insert on right
+              parent.setRightChild(newNode);
+              break;  
+            }
+        }
+      } // while
+    } // else
+  } // method
+
+  // return the tree item with the minimum key value
+  // return null if the tree is empty
+  public TreeItem findMinKeyItem()
+  {
+    Node current, last;
+
+    if (root == null)
+      return null;
+    current = last = root;
+    while (current != null)
+    {
+      last = current;
+      // always go left
+      current = current.getLeftChild();
+      
+    }
+    return last.getTreeItem();
+  }
+
+  // return the tree item with the maximum key value
+  // return null if the tree is empty
+  public TreeItem findMaxKeyItem()
+  {
+    Node current, last;
+
+    if (root == null)
+      return null;
+    current = last = root;
+    while (current != null)
+    {
+      last = current;
+      // always go right
+      current = current.getRightChild();
+      
+    }
+    return last.getTreeItem();
+  }
+
+  // remove the item with the desired key
+  // return true if the deletion can be done successfully
+  // return false if the tree has no such item
+  public boolean delete(Object k)
+  {
+    if (root == null)
+      return false; // tree is empty
+
+    // start from the root
+    Node current = root;
+    // parent of the current node
+    Node parent = root;
+    // indicate the node to be deleted
+    // is left or right child of its parent
+    boolean isLeftChild = true;
+ 
+    // while (k != key(currentItem))
+    TreeItem currentItem = current.getTreeItem(); 
+    while (currentItem.compareTo(k) != 0)
+    {
+      parent = current;
+      if (currentItem.compareTo(k) > 0)
+      {
+         // k < key(currentItem)
+         isLeftChild = true;
+         current = current.getLeftChild();
+      }
+      else
+      {
+         // k > key(currentItem)
+         isLeftChild = false;
+         current = current.getRightChild();
+      }
+      if (current == null)
+         return false; // no item with key k in the tree
+      else
+         currentItem = current.getTreeItem();
+    }
+    // At this point, the node to be deleted is found
+
+    if ((current.getLeftChild() == null) && (current.getRightChild() == null))
+    {
+      // case 1: the node to be deleted is a leaf
+      if (current == root)
+        root = null;
+      else if (isLeftChild)
+        parent.setLeftChild(null);
+      else
+        parent.setRightChild(null); 
+    }
+    else if (current.getLeftChild() == null)
+    {
+      // case 2: the node to be deleted has only right child
+      if (current == root)
+        root = current.getRightChild();
+      else if (isLeftChild)
+        parent.setLeftChild(current.getRightChild());
+      else
+        parent.setRightChild(current.getRightChild());
+    }
+    else if (current.getRightChild() == null)
+    {
+      // case 2: the node to be deleted has only left child
+      if (current == root)
+        root = current.getLeftChild();
+      else if (isLeftChild)
+        parent.setLeftChild(current.getLeftChild());
+      else
+        parent.setRightChild(current.getLeftChild());
+    }
+    else
+    {
+      // case 3: the node to be deleted has two children
+
+      // get successor of the node to be deleted
+      Node successor = getSuccessor(current);
+
+      // connect parent of the node to be deleted (if any)
+      // to successor
+      if (current == root)
+        root = successor;
+      else if (isLeftChild)
+        parent.setLeftChild(successor);
+      else
+        parent.setRightChild(successor);
+
+      // connect successor to the left child of
+      // the node to be deleted
+      successor.setLeftChild(current.getLeftChild());
+
+    }
+    return true; // success
+  }
+
+  private Node getSuccessor(Node delNode)
+  {
+    Node parentSuccessor = delNode;
+    Node successor = delNode;
+
+    // start by going to the right subtree
+    Node curr = delNode.getRightChild();
+    // then keep going to the left subtree
+    while (curr != null)
+    {
+      parentSuccessor = successor;
+      successor = curr;
+      curr = curr.getLeftChild();
+    }
+    if (successor != delNode.getRightChild())
+    {
+      parentSuccessor.setLeftChild(successor.getRightChild());
+      successor.setRightChild(delNode.getRightChild());
+    }
+
+    return successor;
+  }
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      System.out.println(localRoot.getTreeItem());
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      System.out.println(localRoot.getTreeItem());
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      System.out.println(localRoot.getTreeItem());
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+  }
+}

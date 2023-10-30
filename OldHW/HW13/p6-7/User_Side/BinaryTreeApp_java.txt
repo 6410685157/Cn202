@@ -1,0 +1,48 @@
+public class BinaryTreeApp
+{
+  public static void main(String[] args)
+  {
+    BinaryTree bt1 = new BinaryTree();
+    bt1.insert(9);
+    bt1.insert(4);
+    bt1.insert(15);
+    bt1.insert(2);
+    bt1.insert(6);
+    bt1.insert(7);
+    bt1.insert(12);
+    bt1.insert(21);
+    
+    System.out.println("Inorder Traversal of bt1");
+    bt1.traverseInOrder();
+    System.out.println("Preorder Traversal of bt1");
+    bt1.traversePreOrder();
+    System.out.println("BFS Traversal of bt1");
+    bt1.traverseBFS();
+
+
+    System.out.println("The number of node in bt1 = " + bt1.countNode());
+    System.out.println("bt1 is a BST? " + bt1.isBST());
+    System.out.println();
+
+    BinaryTree bt2 = new BinaryTree();
+    bt2.insertBFS(1);
+    bt2.insertBFS(2);
+    bt2.insertBFS(3);
+    bt2.insertBFS(4);
+    bt2.insertBFS(5);
+    bt2.insertBFS(6);
+    bt2.insertBFS(7);
+    bt2.insertBFS(8);
+    
+    System.out.println("Inorder Traversal of bt2");
+    bt2.traverseInOrder();
+    System.out.println("Preorder Traversal of bt2");
+    bt2.traversePreOrder();
+    System.out.println("BFS Traversal of bt2");
+    bt2.traverseBFS();
+
+
+    System.out.println("The number of node in bt2 = " + bt2.countNode());
+    System.out.println("bt2 is a BST? " + bt2.isBST());
+  }
+}

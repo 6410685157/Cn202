@@ -1,0 +1,42 @@
+public class RecursiveInsertionSort
+{
+  public static void main(String[] args)
+  {
+    int n = Integer.parseInt(args[0]);
+    int[] A = new int[n];
+
+    for (int i=0; i<n; i++)
+       A[i] = n-i;
+
+    System.out.println("Before sorting ... ");
+    for (int i=0; i<n; i++)
+       System.out.print(A[i] + " ");
+    System.out.println();
+
+    insertionSort(A, A.length-1);
+
+    System.out.println("After sorting ... ");
+    for (int i=0; i<n; i++)
+       System.out.print(A[i] + " ");
+    System.out.println();
+
+  }
+  public static void insertionSort(int[] A, int last)
+  {
+    if (last > 0) // if A has more than one item
+    {
+      // insertion sort for the first n-1 items
+      insertionSort(A, last-1);
+
+      // insert A[last] into the proper position
+      int temp = A[last];
+      int i;
+      for (i=last-1; i>=0; i--)
+         if (A[i] > temp)
+            A[i+1] = A[i];
+         else
+            break;
+      A[i+1] = temp;
+    }    
+  }
+}

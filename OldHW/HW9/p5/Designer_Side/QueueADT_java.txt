@@ -1,0 +1,9 @@
+public interface QueueADT
+{
+  public void insert(QueueItem newItem) throws InvalidPriorityException;
+  public QueueItem remove() throws QueueEmptyException;
+  public int size();
+  public boolean isEmpty();
+  public void printQueue();
+
+}

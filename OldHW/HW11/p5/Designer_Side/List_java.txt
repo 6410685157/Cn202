@@ -1,0 +1,79 @@
+public class List
+{
+  private SNode first;
+
+  public List()
+  { first = null; }
+
+  public int size()
+  { int   nNodes = 0;
+    SNode current = first;
+    while (current != null)
+    { nNodes++;
+      current = current.getNext();
+    }
+    return nNodes;
+  }
+  public void insertAtFront(int o)
+  {
+    SNode newSNode = new SNode(o, first);
+    first = newSNode;
+  }
+  public boolean isEmpty()
+  { return (first == null);
+  }
+  public int removeAtFront() throws ListEmptyException
+  { if (isEmpty())
+      throw new ListEmptyException("Singly linked list is empty.");
+    int frontItem = first.getItem();
+    first = first.getNext();
+    return frontItem;
+  }
+  public int first() throws ListEmptyException
+  { if (isEmpty())
+      throw new ListEmptyException("Singly linked list is empty.");
+    return first.getItem();
+  }
+  public void printList()
+  {
+    SNode curr = first;
+    while (curr != null)
+    {
+      System.out.print(curr.getItem() + " ");
+      curr = curr.getNext();
+    }
+    System.out.println();
+  }
+
+  // findSumItem: iterative approach
+  public int findSumItemIterative() throws ListEmptyException
+  {
+    if (isEmpty())
+      throw new ListEmptyException("Singly linked list is empty.");
+    int sum = 0;
+    SNode curr = first;
+    while (curr != null)
+    {
+       sum = sum + curr.getItem();
+       curr = curr.getNext();
+    }
+    return sum;
+  }
+
+  // find sum of all items in the linked list whose first node is "first"
+  private int findSumItemList(SNode first)
+  {
+    if (first == null)
+      return 0;
+    else
+      return first.getItem() + findSumItemList(first.getNext());
+  }
+
+  // findSumItem: recursive approach
+  public int findSumItemRecursive() throws ListEmptyException
+  {
+    if (isEmpty())
+      throw new ListEmptyException("Singly linked list is empty.");
+    return findSumItemList(first);
+  }
+}

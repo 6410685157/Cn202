@@ -1,0 +1,33 @@
+public class ListApp
+{
+  public static void main(String[] args)
+  {
+    List myList1 = new List();
+    myList1.insertAtFront(4);
+    myList1.insertAtFront(3);
+    myList1.insertAtFront(2);
+    myList1.insertAtFront(1);
+    System.out.println("Size of myList1 = " + myList1.size());
+    myList1.printList();
+
+    List myList2 = new List();
+    myList2.insertAtFront(8);
+    myList2.insertAtFront(7);
+    myList2.insertAtFront(6);
+    myList2.insertAtFront(5);
+    System.out.println("Size of myList2 = " + myList2.size());
+    myList2.printList();
+
+    myList1.append(myList2);
+    System.out.println("After appending myList2 to myList1");
+    System.out.println("Size of myList1 = " + myList1.size());
+    myList1.printList();
+    System.out.println("Size of myList2 = " + myList2.size());
+    myList2.printList();
+
+    myList1.reverse();
+    System.out.println("After reversing items in myList1");
+    System.out.println("Size of myList1 = " + myList1.size());
+    myList1.printList();
+  }
+}

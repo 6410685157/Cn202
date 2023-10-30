@@ -1,0 +1,20 @@
+public class TestMyQueue
+{
+  public static void main(String[] args)
+  {
+     Queue q = new Queue();
+     for (int i=0; i<10; i++)
+       if ((i % 2) == 0)
+         q.insert(new MyQueueItem(0, "item" + i));
+       else
+         q.insert(new MyQueueItem(1, "item" + i));
+     q.printQueue();
+     while(!q.isEmpty())
+     {
+         QueueItem removedItem = q.remove();
+         System.out.println("remove " + removedItem);
+         q.printQueue();
+     }
+  
+  }
+}

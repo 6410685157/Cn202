@@ -1,0 +1,18 @@
+public class Node
+{
+  private QueueItem item;
+  private Node next;
+
+  public Node(QueueItem itemValue, Node nextValue)
+  { item = itemValue; next = nextValue; }
+
+  public void setItem(QueueItem itemValue)
+  { item = itemValue; }
+  public void setNext(Node nextValue)
+  { next = nextValue; }
+  public QueueItem getItem()
+  { return item; }
+  public Node getNext()
+  { return next; }
+
+}

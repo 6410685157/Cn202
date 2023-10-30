@@ -1,0 +1,221 @@
+public class BinaryTree implements BinaryTreeADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BinaryTree()
+  { root = null; }
+
+  // methods
+
+  // insert an item i into the binary tree
+  public void insert(int i)
+  {
+    Node newNode = new Node(i, null, null);
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      while (true)
+      {
+        parent = current;
+        if (current.getTreeItem() > i)
+        {   // k < key(current)
+            current = current.getLeftChild(); // go left
+            if (current == null)
+            {
+              // insert on left
+              parent.setLeftChild(newNode);
+              break;
+            }
+        }
+        else
+        {
+            // k >= key(current)
+            current = current.getRightChild(); // go right
+            if (current == null)
+            {
+              // insert on right
+              parent.setRightChild(newNode);
+              break;  
+            }
+        }
+      } // while
+    } // else
+  } // method
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+     System.out.println();
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      System.out.print(localRoot.getTreeItem() + " ");
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+     System.out.println();
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+     System.out.println();
+  }
+
+  private int countNodeV2(Node localRoot)
+  {  
+     // Another version for countNode method
+     if (localRoot == null)
+       return 0;
+     else
+     {
+       int numNode = countNodeV2(localRoot.getLeftChild());
+       numNode++;  // for local root
+       numNode = numNode + countNodeV2(localRoot.getRightChild());
+       return numNode;
+     }
+  }
+  private int countNode(Node localRoot)
+  {
+     if (localRoot == null)
+       return 0;
+     else
+     {
+       return 1 + countNode(localRoot.getLeftChild()) + countNode(localRoot.getRightChild());
+     }
+  }
+
+  public int countNode()
+  {
+     return countNode(root);
+  }
+
+  // check whether the subtree whose root is "localRoot" is a BST
+  private boolean isBST(Node localRoot)
+  {
+     if (localRoot == null)
+       return true;
+     else if ((localRoot.getLeftChild() == null) && (localRoot.getRightChild() == null))
+     {
+        // localRoot is a leaf
+        System.out.println("localRoot = " + localRoot.getTreeItem() + " left = null " + " right = null");
+        return true;
+     }
+     else if ((localRoot.getLeftChild() != null) && (localRoot.getRightChild() == null))
+     {
+       // localRoot has only left subtree
+       Node leftChild = localRoot.getLeftChild();
+       System.out.println("localRoot = " + localRoot.getTreeItem() + " left = " + leftChild.getTreeItem() +
+                          " right = null");
+       return (isBST(leftChild) && (leftChild.getTreeItem() < localRoot.getTreeItem()));
+     }
+     else if ((localRoot.getLeftChild() == null) && (localRoot.getRightChild() != null))
+     {
+       // localRoot has only right subtree
+       Node rightChild = localRoot.getRightChild();
+       System.out.println("localRoot = " + localRoot.getTreeItem() + " left = null " +
+                          " right = " + rightChild.getTreeItem());
+       return (isBST(rightChild) && (rightChild.getTreeItem() > localRoot.getTreeItem()));
+     }
+     else
+     {
+       // localRoot has both subtrees
+       Node leftChild = localRoot.getLeftChild();
+       Node rightChild = localRoot.getRightChild();
+       System.out.println("localRoot = " + localRoot.getTreeItem() + " left = " + leftChild.getTreeItem() +
+                          " right = " + rightChild.getTreeItem());
+       return (isBST(leftChild) && isBST(rightChild) && 
+               (leftChild.getTreeItem() < localRoot.getTreeItem()) && 
+               (localRoot.getTreeItem() < rightChild.getTreeItem()));
+     }
+  }
+
+  public boolean isBST()
+  {  return isBST(root);
+  }
+
+  public void insertBFS(int i)
+  {
+    if (root == null)
+    { Node newNode = new Node(i, null, null);
+      root = newNode;
+    }
+    else
+    {
+      Queue q = new Queue();
+      q.insert(root);
+      while (!q.isEmpty())
+      {
+        Node curr = (Node) q.remove();
+        Node leftCurr = curr.getLeftChild();
+        if (leftCurr != null)
+          q.insert(leftCurr);
+        else
+        {  Node newNode = new Node(i, null, null);
+           curr.setLeftChild(newNode);
+           break;
+        }
+        Node rightCurr = curr.getRightChild();
+        if (rightCurr != null)
+          q.insert(rightCurr);
+        else
+        {  Node newNode = new Node(i, null, null);
+           curr.setRightChild(newNode);
+           break;
+        }
+      }
+    }
+  }
+
+  public void traverseBFS()
+  {
+    if (root != null)
+    {
+      Queue q = new Queue();
+      q.insert(root);
+      while (!q.isEmpty())
+      {
+        Node curr = (Node) q.remove();
+        System.out.print(curr.getTreeItem() + " ");
+        Node leftCurr = curr.getLeftChild();
+        if (leftCurr != null)
+          q.insert(leftCurr);
+        Node rightCurr = curr.getRightChild();
+        if (rightCurr != null)
+          q.insert(rightCurr);
+      }
+    }
+    System.out.println();
+  }
+
+}

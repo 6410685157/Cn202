@@ -1,0 +1,22 @@
+public class Node
+{
+  private int key;
+  private Node left;
+  private Node right;
+
+  public Node(int k, Node l, Node r)
+  { key = k; left = l; right = r; }
+  // get-set methods
+  public int getKey()
+  { return key; }
+  public Node getLeftChild()
+  { return left; }
+  public Node getRightChild()
+  { return right; }
+  public void setKey(int k)
+  { key = k; }
+  public void setLeftChild(Node l)
+  { left = l; }
+  public void setRightChild(Node r)
+  { right = r; }
+}

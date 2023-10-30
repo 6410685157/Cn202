@@ -1,0 +1,110 @@
+public class BinaryTree implements BinaryTreeADT
+{
+  // instance variable
+  private Node root;
+
+  // constructor
+  public BinaryTree()
+  { root = null; }
+
+  // methods
+  // insert an item i into the binary tree
+  public void insert(int i)
+  {
+    Node newNode = new Node(i, null, null);
+    if (root == null)
+      root = newNode; // first node of the tree
+    else
+    {
+      Node current = root;
+      Node parent;
+      while (true)
+      {
+        parent = current;
+        if (current.getTreeItem() > i)
+        {   // k < key(current)
+            current = current.getLeftChild(); // go left
+            if (current == null)
+            {
+              // insert on left
+              parent.setLeftChild(newNode);
+              break;
+            }
+        }
+        else
+        {
+            // k >= key(current)
+            current = current.getRightChild(); // go right
+            if (current == null)
+            {
+              // insert on right
+              parent.setRightChild(newNode);
+              break;  
+            }
+        }
+      } // while
+    } // else
+  } // method
+
+  private void inOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      inOrder(localRoot.getLeftChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+      inOrder(localRoot.getRightChild());
+    }
+  }
+  public void traverseInOrder()
+  {
+     inOrder(root);
+     System.out.println();
+  }
+
+  private void preOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      System.out.print(localRoot.getTreeItem() + " ");
+      preOrder(localRoot.getLeftChild());
+      preOrder(localRoot.getRightChild());
+    }    
+  }
+  public void traversePreOrder()
+  {
+     preOrder(root);
+     System.out.println();
+  }
+
+  private void postOrder(Node localRoot)
+  {
+    if (localRoot != null)
+    {
+      postOrder(localRoot.getLeftChild());
+      postOrder(localRoot.getRightChild());
+      System.out.print(localRoot.getTreeItem() + " ");
+    }
+  }
+  public void traversePostOrder()
+  {
+     postOrder(root);
+     System.out.println();
+  }
+
+  private void mirror(Node v)
+  {
+     if (v != null)
+     {
+       Node temp = v.getLeftChild();
+       v.setLeftChild(v.getRightChild());
+       v.setRightChild(temp);
+
+       mirror(v.getLeftChild());
+       mirror(v.getRightChild());
+     }
+  }
+  public void mirror()
+  {
+     mirror(root);
+  }
+}

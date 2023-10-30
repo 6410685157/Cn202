@@ -1,0 +1,57 @@
+public class List
+{
+  private SNode first;
+
+  public List()
+  { first = null; }
+
+  public int size()
+  { int   nNodes = 0;
+    SNode current = first;
+    while (current != null)
+    { nNodes++;
+      current = current.getNext();
+    }
+    return nNodes;
+  }
+  public void insertAtFront(int o)
+  {
+    SNode newSNode = new SNode(o, first);
+    first = newSNode;
+  }
+  public boolean isEmpty()
+  { return (first == null);
+  }
+  public void printList()
+  {
+    SNode curr = first;
+    while (curr != null)
+    {
+      System.out.print(curr.getItem() + " ");
+      curr = curr.getNext();
+    }
+    System.out.println();
+  }
+  public void append(List l)
+  { SNode current = first;
+    if (current == null)
+      current = l.first;
+    while (current.getNext() != null)
+      current = current.getNext();
+    current.setNext(l.first);
+    l.first = null;  
+  }
+  public void reverse()
+  { SNode result = null;
+    SNode curr = first;
+    SNode next;
+    while (curr != null)
+    { next = curr.getNext();
+      curr.setNext(result);
+      result = curr;
+      curr = next;
+    }
+    first = result;
+  }
+
+}

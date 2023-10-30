@@ -1,0 +1,9 @@
+public interface BSTADT
+{
+  public boolean hasPathEqual(int sum);
+
+  public void insert(int i);
+  public void traverseInOrder();
+  public void traversePreOrder();
+  public void traversePostOrder();
+}
