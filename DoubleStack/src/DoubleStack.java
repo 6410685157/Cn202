@@ -1,3 +1,6 @@
+import Designer.StackEmptyException;
+import Designer.StackFullException;
+
 public class DoubleStack implements DoubleStackADT{
     
     private int[] array;
